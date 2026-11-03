@@ -47,6 +47,8 @@ ul{margin:0;padding:0;list-style:none}
 .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;display:flex;align-items:center;gap:14px;color:var(--ink-soft)}
 .eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* palavra manuscrita dentro de uma linha: desce até a linha de base do texto */
+h2 .script:not([style*=block]),h3 .script{display:inline-block;transform:translateY(.16em)}
 .lg-c{display:var(--lg-c)}.lg-b{display:var(--lg-b)}
 /* grão do story */
 .grain{position:relative;isolation:isolate}
@@ -106,6 +108,16 @@ ul{margin:0;padding:0;list-style:none}
   .chip-card.c1{left:-8px}.chip-card.c2{right:-8px}
   .hero .mono{right:-30%;opacity:.18}
 }
+@media (max-width:560px){
+  .hero{padding-top:104px}
+  .hero .eyebrow{letter-spacing:.2em;font-size:10.5px}
+  .hero .meta{gap:4px 20px}.hero .meta span{padding-top:14px}
+  .hero .cta .btn{width:100%;justify-content:space-between}
+  .hero .cta .btn.ghost{justify-content:center}
+  .chip-card{padding:10px 14px 10px 10px;font-size:11.5px;border-radius:16px;gap:10px}
+  .chip-card b{font-size:13px}.chip-card i{width:34px;height:34px;border-radius:11px}
+  .chip-card.c1{left:0;top:8%}.chip-card.c2{right:0;bottom:7%}
+}
 
 /* ---------- manifesto ---------- */
 .manif{padding-block:clamp(110px,16vw,220px);position:relative;overflow:hidden}
@@ -113,7 +125,7 @@ ul{margin:0;padding:0;list-style:none}
 #manifesto{font-size:clamp(28px,4.1vw,64px);line-height:1.18;font-weight:300;max-width:22ch;letter-spacing:-.015em}
 #manifesto .w{opacity:.16;transition:opacity .35s}
 #manifesto .w.on{opacity:1}
-#manifesto em{font-style:normal;font-family:var(--script);color:var(--accent);font-size:1.45em;line-height:.6}
+#manifesto em{font-style:normal;font-family:var(--script);color:var(--accent);font-size:1.3em;line-height:0;display:inline-block;transform:translateY(.2em);padding-inline:.06em}
 .manif .sign{margin-top:56px;display:flex;align-items:center;gap:18px;color:var(--ink-soft);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
 .manif .sign img{height:52px;width:auto}
 
@@ -135,10 +147,20 @@ ul{margin:0;padding:0;list-style:none}
 .creds b{display:block;font-size:clamp(30px,3vw,46px);font-weight:300;letter-spacing:-.03em;color:var(--accent);line-height:1.1}
 .creds span{font-size:13px;color:var(--ink-soft);line-height:1.4;display:block;margin-top:6px}
 @media (max-width:900px){.sobre .in{grid-template-columns:1fr}.sobre .pwrap{max-width:440px}.sobre .pwrap .badge{right:-10px;top:-30px;width:120px;height:120px}}
+@media (max-width:520px){.sobre .pwrap .badge{right:10px;top:-26px;width:104px;height:104px}.sobre .pwrap .badge img{width:36px}}
 @media (max-width:520px){.creds{grid-template-columns:1fr}.creds li{padding-top:18px}}
 
 /* ---------- temas (rolagem horizontal fixada) ---------- */
 .temas{overflow:hidden;position:relative}
+@media (min-width:761px) and (min-height:560px){
+  .temas{height:100vh;height:100svh;display:flex;flex-direction:column}
+  .temas .head{padding-top:clamp(28px,9vh,140px)!important;width:100%}
+  .temas h2{font-size:min(4.6vw,7.4vh)}
+  .track{flex:1;min-height:0;padding-top:clamp(20px,4.5vh,56px)!important;padding-bottom:clamp(56px,11vh,140px)!important}
+  .tema{height:min(500px,100%)!important;min-height:260px}
+  .tema p{font-size:min(14.5px,1.9vh)}
+  .progress{bottom:clamp(28px,5.5vh,72px)!important}
+}
 .temas .head{padding-top:clamp(90px,11vw,150px);display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
 .temas h2{font-size:clamp(38px,4.6vw,72px);max-width:14ch}
 .temas h2 .script{font-size:1.4em}
@@ -162,11 +184,15 @@ ul{margin:0;padding:0;list-style:none}
 .tema.cta-card .btn .arr{background:var(--btn);color:var(--btn-ink)}
 .progress{position:absolute;left:var(--g);right:var(--g);bottom:clamp(50px,6vw,80px);height:1px;background:var(--line)}
 .progress i{position:absolute;inset:0;background:var(--accent);transform-origin:left;transform:scaleX(0)}
-@media (max-width:760px){
-  .track{flex-direction:column;width:auto;padding-top:40px}
-  .tema{width:100%;height:auto;min-height:280px;gap:40px}
-  .tema.ph-card{min-height:380px}
+.swipe{display:none}
+@media (max-width:760px),(max-height:559px){
+  .track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:14px;padding:32px var(--g) 24px;scroll-padding-inline:var(--g)}
+  .track::-webkit-scrollbar{display:none}
+  .tema{width:min(80vw,330px);height:380px;scroll-snap-align:start;padding:26px}
+  .tema .ghost{font-size:96px}
   .progress{display:none}
+  .swipe{display:flex;align-items:center;gap:10px;padding:0 var(--g) 80px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+  .swipe::after{content:"";width:40px;height:1px;background:currentColor}
 }
 
 /* ---------- passos ---------- */
@@ -183,7 +209,7 @@ ul{margin:0;padding:0;list-style:none}
 .step h3{font-size:clamp(22px,1.8vw,28px);font-weight:400;margin-bottom:12px}
 .step p{font-size:14.5px;color:var(--ink-soft);line-height:1.6}
 @media (max-width:900px){.passos .head{grid-template-columns:1fr}.passos .head p{justify-self:start}.steps{grid-template-columns:1fr 1fr;row-gap:44px}}
-@media (max-width:520px){.steps{grid-template-columns:1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr;row-gap:0;border-top:0;padding-left:26px}.steps::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--line)}.steps .bar{left:0;top:8px;width:2px;height:calc(100% - 16px);transform-origin:top;transform:scaleY(0)}.step{padding:0 0 34px}.step .dia{left:-32px;top:6px}.step .k{margin-top:0}}
 
 /* ---------- faixa com foto ---------- */
 .band{position:relative;height:max(620px,92svh);overflow:hidden;display:grid;place-items:center;text-align:center;color:var(--creme);isolation:isolate}
@@ -209,6 +235,34 @@ ul{margin:0;padding:0;list-style:none}
 .modo li{display:flex;gap:12px;align-items:flex-start}
 .modo li::before{content:"";width:7px;height:7px;margin-top:9px;flex-shrink:0;transform:rotate(45deg);background:var(--accent)}
 @media (max-width:820px){.modos{grid-template-columns:1fr}}
+
+/* ---------- programa ---------- */
+.prog{padding-block:0 clamp(90px,12vw,170px)}
+.prog .card{border-radius:40px;padding:clamp(34px,6vw,90px);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,100px);align-items:center;position:relative;overflow:hidden}
+.prog .card>.mono{right:-6%;top:-20%;height:150%;width:auto;opacity:.14;stroke-width:9}
+.prog .copy{display:flex;flex-direction:column;gap:24px;position:relative;z-index:1}
+.prog h2{font-size:clamp(40px,5vw,80px)}
+.prog h2 .script{font-size:1.45em}
+.prog .copy>p{color:var(--ink-soft);max-width:48ch;font-size:16.5px}
+.prog ul{display:grid;gap:12px;font-size:15px}
+.prog li{display:flex;gap:12px;align-items:flex-start}
+.prog li::before{content:"";width:7px;height:7px;margin-top:9px;flex-shrink:0;transform:rotate(45deg);background:var(--accent)}
+.prog .buy{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:8px}
+.prog .buy small{font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:8px}
+.cover-wrap{position:relative;justify-self:center;width:min(380px,100%);perspective:1200px}
+.cover{aspect-ratio:3/4;border-radius:28px;padding:34px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;background:linear-gradient(155deg,#8a2a37 0%,var(--bordo) 38%,var(--vinho) 100%);color:var(--creme);box-shadow:0 40px 90px rgba(40,4,6,.35),inset 0 0 0 1px rgba(243,236,228,.14);transform:rotate(-4deg)}
+.cover::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(243,236,228,.22),transparent 45%);pointer-events:none}
+.cover .mono{left:12%;top:-6%;height:115%;width:auto;stroke:var(--rose);opacity:.35;stroke-width:12}
+.cover .lb{position:relative;font-size:11px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:rgba(243,236,228,.8)}
+.cover .tt{position:relative;font-weight:300;font-size:clamp(34px,3.4vw,46px);line-height:1;letter-spacing:-.02em}
+.cover .tt span{display:block;font-family:var(--script);font-size:1.6em;color:var(--rose);margin-top:.05em}
+.cover .au{position:relative;display:flex;align-items:center;gap:12px;font-size:12.5px;letter-spacing:.08em;color:rgba(243,236,228,.85)}
+.cover .au img{width:30px}
+.cover-wrap .chip-card{position:absolute}
+.cover-wrap .chip-card.p1{left:-46px;top:4%}
+.cover-wrap .chip-card.p2{right:-36px;bottom:14%}
+@media (max-width:900px){.prog .card{grid-template-columns:1fr}.cover-wrap{width:min(320px,82%);margin-top:10px}}
+@media (max-width:560px){.prog .card{border-radius:28px;padding:34px 22px 44px}.prog .buy .btn{width:100%;justify-content:space-between}.cover-wrap .chip-card.p1{left:-14px;top:-22px}.cover-wrap .chip-card.p2{right:-14px;bottom:-22px}}
 
 /* ---------- dúvidas ---------- */
 .faq{padding-block:clamp(90px,12vw,170px)}
@@ -243,7 +297,7 @@ ul{margin:0;padding:0;list-style:none}
 .channel small{font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
 .channel b{display:block;font-size:17px;font-weight:500;margin-top:6px;word-break:break-word}
 @media (max-width:980px){.channels{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.channels{grid-template-columns:1fr}}
+@media (max-width:520px){.channels{grid-template-columns:1fr;gap:10px}.channel{flex-direction:row;align-items:center;gap:16px;padding:16px 18px}.channel b{font-size:15.5px;margin-top:2px}}
 footer{padding-block:clamp(70px,8vw,110px) 34px}
 footer .logo{width:min(420px,70%);margin:0 auto}
 footer .logo img{width:100%;height:auto}
@@ -255,7 +309,7 @@ footer .cvv b{color:var(--ink);font-weight:600}
 .static #manifesto .w{opacity:1}
 @media (min-width:761px){.static .track{display:grid;grid-template-columns:repeat(4,1fr);width:auto}.static .tema{width:auto;height:440px}.static .tema h3{font-size:32px}}
 .static .progress{display:none}
-.static .steps .bar{transform:none}
+.static .steps .bar{transform:none!important}
 @media (prefers-reduced-motion:reduce){#manifesto .w{opacity:1}.steps .bar{transform:none}}
 </style>
 </head>
@@ -268,7 +322,7 @@ footer .cvv b{color:var(--ink);font-weight:600}
       <span class="nm">júnia alves</span>
     </a>
     <nav class="links" aria-label="Seções">
-      <a href="#sobre">Sobre</a><a href="#temas">Como posso ajudar</a><a href="#atendimento">Atendimento</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a>
+      <a href="#sobre">Sobre</a><a href="#temas">Como posso ajudar</a><a href="#atendimento">Atendimento</a><a href="#programa">Programa</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a>
     </nav>
     <a class="btn" href="#contato"><span class="t">Agendar conversa</span><span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
   </div>
@@ -345,6 +399,7 @@ footer .cvv b{color:var(--ink);font-weight:600}
       <article class="tema"><span class="ghost" aria-hidden="true">06</span><span class="n">06</span><div><h3>Autoconhecimento</h3><p>Entender seus padrões, desejos e limites para fazer escolhas mais conscientes.</p></div></article>
       <article class="tema cta-card"><span class="n" style="color:inherit;opacity:.7">07</span><div><h3>Algo que <span class="script">não tem nome</span></h3><p>Às vezes só sabemos que algo não vai bem. Isso já é motivo suficiente para começar.</p></div><a class="btn" href="#contato">Vamos conversar <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></article>
     </div>
+    <p class="swipe" aria-hidden="true">Arraste para o lado</p>
     <div class="progress" aria-hidden="true"><i id="prog"></i></div>
   </section>
 
@@ -387,6 +442,39 @@ footer .cvv b{color:var(--ink);font-weight:600}
           <div class="b"><h3><small>Online</small>Do conforto da sua casa</h3><ul><li>Videochamada em plataforma segura</li><li>Para todo o Brasil e brasileiros no exterior</li><li>Horários flexíveis, inclusive à noite</li></ul></div></article>
         <article class="modo"><div class="ph" data-parallax="6"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80" alt="Poltrona em ambiente tranquilo" loading="lazy"></div>
           <div class="b"><h3><small>Presencial</small>Um espaço só seu</h3><ul><li>Consultório reservado em Bairro, Cidade/UF</li><li>Ambiente acolhedor e com sigilo garantido</li><li>Fácil acesso e estacionamento próximo</li></ul></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMA -->
+  <section class="prog ctx-a g" id="programa">
+    <div class="wrap">
+      <div class="card ctx-b grain">
+        <svg class="mono" viewBox="0 0 1125 2000" aria-hidden="true"><path pathLength="1" d="M340 0V1110"/><path pathLength="1" d="M62 1180c0 78 66 140 148 140 30 0 52-7 72-18"/><path pathLength="1" d="M25 2000 562 600l548 1400"/></svg>
+        <div class="copy">
+          <p class="eyebrow">Programa online</p>
+          <h2 class="split4">Emoções sem <span class="script">culpa</span></h2>
+          <p>Um caminho guiado para reconhecer, acolher e expressar o que você sente, sem se cobrar por isso. Para fazer no seu ritmo, de onde estiver.</p>
+          <ul>
+            <li>Conteúdos em vídeo para assistir quando quiser</li>
+            <li>Exercícios práticos para levar para o dia a dia</li>
+            <li>Acesso pelo celular ou computador</li>
+          </ul>
+          <div class="buy">
+            <a class="btn" href="https://pay.kiwify.com.br/6UQoaHd" target="_blank" rel="noopener">Quero conhecer o programa <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+            <small><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Pagamento seguro pela Kiwify</small>
+          </div>
+        </div>
+        <div class="cover-wrap">
+          <a class="cover" id="cover" href="https://pay.kiwify.com.br/6UQoaHd" target="_blank" rel="noopener" aria-label="Programa Emoções sem Culpa">
+            <svg class="mono" viewBox="0 0 1125 2000" aria-hidden="true"><path pathLength="1" d="M340 0V1110"/><path pathLength="1" d="M62 1180c0 78 66 140 148 140 30 0 52-7 72-18"/><path pathLength="1" d="M25 2000 562 600l548 1400"/></svg>
+            <span class="lb">Programa</span>
+            <span class="tt">Emoções sem<span>culpa</span></span>
+            <span class="au"><img src="assets/img/icone-creme.png" alt="">Júnia Alves · Psicóloga</span>
+          </a>
+          <div class="chip-card p1"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></i><span><b>Acesso imediato</b>Comece hoje mesmo</span></div>
+          <div class="chip-card p2"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></i><span><b>100% online</b>No seu tempo</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -475,7 +563,7 @@ if(window.gsap&&!reduce&&!STATIC){
     document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();lenis.scrollTo(t,{offset:-20})}}));}
 
   const split=sel=>document.querySelectorAll(sel).forEach(el=>{const walk=n=>[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){f.append(w);return}const o=document.createElement('span');o.style.cssText='display:inline-block;overflow:hidden;vertical-align:top;padding:.12em .06em .18em;margin:-.12em -.06em -.18em';const i=document.createElement('span');i.className='wi';i.style.display='inline-block';i.textContent=w;o.append(i);f.append(o)});c.replaceWith(f)}else walk(c)});walk(el)});
-  split('.split');split('.split2');split('.split3');
+  split('.split');split('.split2');split('.split3');split('.split4');
 
   // entrada
   const tl=gsap.timeline({defaults:{ease:'expo.out'}});
@@ -505,7 +593,7 @@ if(window.gsap&&!reduce&&!STATIC){
 
   // temas: rolagem horizontal fixada (desktop); empilhado no celular
   const mm=gsap.matchMedia();
-  mm.add('(min-width:761px)',()=>{
+  mm.add('(min-width:761px) and (min-height:560px)',()=>{
     const track=document.getElementById('track');
     const dist=()=>track.scrollWidth-innerWidth;
     gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'.temas',start:'top top',end:()=>'+='+dist(),pin:true,scrub:1,invalidateOnRefresh:true,anticipatePin:1,onUpdate:s=>gsap.set('#prog',{scaleX:s.progress})}});
@@ -513,7 +601,7 @@ if(window.gsap&&!reduce&&!STATIC){
   gsap.from('.temas .head>*',{y:40,opacity:0,duration:1.1,stagger:.1,ease:'expo.out',scrollTrigger:{trigger:'.temas',start:'top 75%'}});
 
   // passos: linha percorre e os itens aparecem
-  gsap.to('#stepsBar',{scaleX:1,ease:'none',scrollTrigger:{trigger:'#steps',start:'top 80%',end:'top 35%',scrub:true}});
+  gsap.to('#stepsBar',{scaleX:1,scaleY:1,ease:'none',scrollTrigger:{trigger:'#steps',start:'top 80%',end:'top 35%',scrub:true}});
   gsap.from('.step',{y:40,opacity:0,duration:1,stagger:.14,ease:'expo.out',scrollTrigger:{trigger:'#steps',start:'top 80%'}});
   gsap.from('.passos .head>*',{y:40,opacity:0,duration:1.1,stagger:.1,ease:'expo.out',scrollTrigger:{trigger:'.passos',start:'top 75%'}});
 
@@ -525,6 +613,12 @@ if(window.gsap&&!reduce&&!STATIC){
 
   gsap.from('.atend .head>*',{y:40,opacity:0,duration:1.1,stagger:.1,ease:'expo.out',scrollTrigger:{trigger:'.atend',start:'top 75%'}});
   gsap.from('.modo',{y:80,opacity:0,duration:1.2,stagger:.15,ease:'expo.out',scrollTrigger:{trigger:'.modos',start:'top 85%'}});
+  gsap.from('.prog .card',{clipPath:'inset(8% 6% 8% 6% round 60px)',ease:'none',scrollTrigger:{trigger:'.prog',start:'top bottom',end:'top 35%',scrub:true}});
+  gsap.from('.prog .wi',{yPercent:120,duration:1.2,stagger:.07,ease:'expo.out',scrollTrigger:{trigger:'.prog h2',start:'top 85%'}});
+  gsap.from('.prog .copy>p,.prog li,.prog .buy',{y:30,opacity:0,duration:1,stagger:.08,ease:'expo.out',scrollTrigger:{trigger:'.prog h2',start:'top 78%'}});
+  gsap.fromTo('#cover',{rotate:-14,y:80,rotateY:-18},{rotate:-4,y:0,rotateY:0,ease:'none',scrollTrigger:{trigger:'.prog',start:'top bottom',end:'center center',scrub:true}});
+  gsap.from('.cover-wrap .chip-card',{y:40,opacity:0,scale:.9,duration:1.1,stagger:.15,ease:'expo.out',scrollTrigger:{trigger:'.cover-wrap',start:'top 70%'}});
+  gsap.fromTo('#programa .card>.mono path,#cover .mono path',{strokeDasharray:1,strokeDashoffset:1},{strokeDashoffset:0,ease:'none',stagger:.1,scrollTrigger:{trigger:'.prog',start:'top 80%',end:'center 40%',scrub:true}});
   gsap.from('.qa',{y:30,opacity:0,duration:1,stagger:.08,ease:'expo.out',scrollTrigger:{trigger:'.faq',start:'top 70%'}});
 
   gsap.fromTo('#footMono path',{strokeDasharray:1,strokeDashoffset:1},{strokeDashoffset:0,stagger:.15,ease:'none',scrollTrigger:{trigger:'.contato',start:'top 80%',end:'top 10%',scrub:true}});
